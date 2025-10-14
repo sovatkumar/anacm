@@ -100,17 +100,32 @@ export default function ZipSearch() {
                 <th className="px-4 py-2">Phone</th>
               </tr>
             </thead>
-            <tbody>
-              {users.map((user, index) => (
-                <tr
-                  key={index}
-                  className="border-b even:bg-gray-50 hover:bg-gray-100"
-                >
-                  <td className="px-4 py-2">{user.email}</td>
-                  <td className="px-4 py-2">{user.phone}</td>
-                </tr>
-              ))}
-            </tbody>
+           <tbody>
+  {users.map((user, index) => (
+    <tr
+      key={index}
+      className="border-b even:bg-gray-50 hover:bg-gray-100"
+    >
+      <td className="px-4 py-2">
+        <a
+          href={`mailto:${user.email}`}
+          className="cursor-pointer hover:underline"
+        >
+          {user.email}
+        </a>
+      </td>
+      <td className="px-4 py-2">
+        <a
+          href={`tel:${user.phone}`}
+          className="cursor-pointer hover:underline"
+        >
+          {user.phone}
+        </a>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
           </table>
         </div>
       ) : (
