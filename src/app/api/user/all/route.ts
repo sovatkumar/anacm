@@ -1,0 +1,38 @@
+import clientPromise from "@/app/lib/mongodb";
+
+type UserData = {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  zip: string;
+};
+
+export async function GET() {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+    const collection = db.collection("user");
+    const users: any = await collection
+      .find({})
+      .project({ _id: 1, name: 1, email: 1, phone: 1, zip: 1 })
+      .toArray();
+
+    if (!users.length) {
+      return new Response(
+        JSON.stringify({ message: "No users found", data: [] }),
+        { status: 404 }
+      );
+    }
+
+    return new Response(
+      JSON.stringify({ message: `Found ${users.length} user(s)`, data: users }),
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error("Fetch All Users Error:", error);
+    return new Response(
+      JSON.stringify({ error: "Failed to fetch users", details: error.message }),
+      { status: 500 }
+    );
+  }
+}
