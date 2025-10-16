@@ -87,7 +87,7 @@ export const UserList = () => {
               key={user._id}
               className="border-t border-gray-100  hover:bg-gray-100 transition-all duration-200 dark:hover:bg-transparent"
             >
-              <td className="px-6 py-3 dark:text-white">{user.email}</td>
+              <td className="px-6 py-3 dark:text-white">{user.email.toLowerCase()}</td>
               <td className="px-6 py-3 dark:text-white">{user.phone}</td>
               <td className="px-6 py-3 dark:text-white">{user.zip}</td>
               <td className="px-6 py-3 text-center space-x-3">

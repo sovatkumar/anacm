@@ -114,10 +114,10 @@ export default function ZipSearch() {
                 >
                   <td className="px-6 py-4 text-gray-700">
                     <a
-                      href={`mailto:${defaultEmail},${user.email}`}
+                      href={`mailto:${defaultEmail},${user.email.toLocaleLowerCase()}`}
                       className="hover:underline text-blue-600"
                     >
-                      {user.email}
+                      {user.email.toLowerCase()}
                     </a>
                   </td>
                   <td className="px-6 py-4 text-gray-700">
