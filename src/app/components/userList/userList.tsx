@@ -85,7 +85,7 @@ export const UserList = () => {
           {userData.map((user) => (
             <tr
               key={user._id}
-              className="border-t border-gray-100 even:bg-gray-50 hover:bg-gray-100 transition-all duration-200 dark:hover:bg-transparent"
+              className="border-t border-gray-100  hover:bg-gray-100 transition-all duration-200 dark:hover:bg-transparent"
             >
               <td className="px-6 py-3 dark:text-white">{user.email}</td>
               <td className="px-6 py-3 dark:text-white">{user.phone}</td>
