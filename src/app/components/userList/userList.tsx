@@ -39,7 +39,7 @@ export const UserList = () => {
     // if (!confirm("Are you sure you want to delete this user?")) return;
     try {
       await axios.delete(`/api/user/${id}`);
-      toast.success("User deleted successfully")
+      toast.success("User deleted successfully");
       fetchUser();
     } catch (error) {
       console.error(error);
@@ -60,7 +60,7 @@ export const UserList = () => {
     try {
       await axios.patch(`/api/user/${selectedUser._id}`, formData);
       setShowModal(false);
-      toast.success("User Updated Successfully")
+      toast.success("User Updated Successfully");
       fetchUser();
     } catch (error) {
       console.error(error);
@@ -72,33 +72,33 @@ export const UserList = () => {
 
   return (
     <div className="h-screen py-3">
-      <table className=" text-left border-collapse w-4xl mx-auto">
-        <thead>
-          <tr className="border-b">
-            <th className="px-4 py-2">Email</th>
-            <th className="px-4 py-2">Phone</th>
-            <th className="px-4 py-2">ZIP</th>
-            <th className="px-4 py-2">Actions</th>
+      <table className="min-w-[800px] mx-auto border border-gray-200 rounded-2xl overflow-hidden shadow-sm text-sm text-gray-700 dark:border-white">
+        <thead className="bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 uppercase text-xs tracking-wide">
+          <tr>
+            <th className="px-6 py-3 text-left">Email</th>
+            <th className="px-6 py-3 text-left">Phone</th>
+            <th className="px-6 py-3 text-left">ZIP</th>
+            <th className="px-6 py-3 text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           {userData.map((user) => (
             <tr
               key={user._id}
-              className="border-b even:bg-gray-50 hover:bg-gray-100"
+              className="border-t border-gray-100 even:bg-gray-50 hover:bg-gray-100 transition-all duration-200 dark:hover:bg-transparent"
             >
-              <td className="px-4 py-2">{user.email}</td>
-              <td className="px-4 py-2">{user.phone}</td>
-              <td className="px-4 py-2">{user.zip}</td>
-              <td className="px-4 py-2 space-x-2">
+              <td className="px-6 py-3 dark:text-white">{user.email}</td>
+              <td className="px-6 py-3 dark:text-white">{user.phone}</td>
+              <td className="px-6 py-3 dark:text-white">{user.zip}</td>
+              <td className="px-6 py-3 text-center space-x-3">
                 <button
-                  className="text-blue-600 hover:underline cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-105 transition-all duration-150 cursor-pointer"
                   onClick={() => handleEditClick(user)}
                 >
                   Edit
                 </button>
                 <button
-                  className="text-red-600 hover:underline cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 hover:scale-105 transition-all duration-150 cursor-pointer"
                   onClick={() => handleDelete(user._id)}
                 >
                   Delete
@@ -114,18 +114,22 @@ export const UserList = () => {
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full relative">
             <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold"
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold cursor-pointer"
               onClick={() => setShowModal(false)}
             >
               ✕
             </button>
-            <h2 className="text-xl font-semibold mb-4">Edit User</h2>
+            <h2 className="text-xl font-semibold mb-4 dark:text-black">
+              Edit User
+            </h2>
             <form onSubmit={handleEditSubmit} className="space-y-4">
               <div>
-                <label className="block font-medium">Email</label>
+                <label className="block font-medium dark:text-black">
+                  Email
+                </label>
                 <input
                   type="email"
-                  className="w-full border border-gray-300 rounded-lg p-2"
+                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -134,10 +138,12 @@ export const UserList = () => {
                 />
               </div>
               <div>
-                <label className="block font-medium">Phone</label>
+                <label className="block font-medium dark:text-black">
+                  Phone
+                </label>
                 <input
                   type="text"
-                  className="w-full border border-gray-300 rounded-lg p-2"
+                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
@@ -146,10 +152,10 @@ export const UserList = () => {
                 />
               </div>
               <div>
-                <label className="block font-medium">ZIP</label>
+                <label className="block font-medium dark:text-black">ZIP</label>
                 <input
                   type="text"
-                  className="w-full border border-gray-300 rounded-lg p-2"
+                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
                   value={formData.zip}
                   onChange={(e) =>
                     setFormData({ ...formData, zip: e.target.value })

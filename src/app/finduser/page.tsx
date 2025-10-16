@@ -73,7 +73,7 @@ export default function ZipSearch() {
               minLength: { value: 5, message: "ZIP must be 5 digits" },
               maxLength: { value: 5, message: "ZIP must be 5 digits" },
             })}
-            className="flex-1 bg-white p-[7px] focus:outline-none focus:ring-2"
+            className="flex-1 bg-white p-[7px] focus:outline-none focus:ring-2 dark:text-black"
           />
 
           <button
