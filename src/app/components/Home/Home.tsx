@@ -93,7 +93,8 @@ export default function Dashboard() {
             <label className="block font-medium">ZIP</label>
             <input
               type="text"
-              {...register("zip", { required: "ZIP is required" })}
+              {...register("zip", { required: "ZIP is required",minLength: { value: 5, message: "ZIP must be 5 digits" },
+              maxLength: { value: 5, message: "ZIP must be 5 digits" }, })}
               className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
               placeholder="ZIP Code"
             />

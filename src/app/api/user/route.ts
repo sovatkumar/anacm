@@ -48,7 +48,7 @@ export async function GET(req: Request) {
 
     if (users.length === 0) {
       return new Response(
-        JSON.stringify({ message: "No users found for this ZIP", data: [] }),
+        JSON.stringify({ message: "Invalid zip code", data: [] }),
         { status: 404 }
       );
     }

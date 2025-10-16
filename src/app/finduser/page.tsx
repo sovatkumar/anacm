@@ -11,12 +11,13 @@ type User = {
   email: string;
   phone: string;
 };
-
 export default function ZipSearch() {
+  const defaultEmail=process.env.NEXT_PUBLIC_DEFAULT_EMAIL
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -34,7 +35,7 @@ export default function ZipSearch() {
       const result = await res.json();
 
       if (!res.ok) {
-        setError(result.message || "No users found");
+        setError(result.message || "Invalid Zip code");
       } else {
         setUsers(result.data);
         setShowModal(true);
@@ -48,93 +49,91 @@ export default function ZipSearch() {
     }
   };
 
+  const zipValue = watch("zip") || "";
+
   return (
-    <main className="max-w-lg mx-auto p-8 space-y-6">
-      {/* ZIP Form */}
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 border border-gray-200 rounded-xl p-6 shadow-sm"
-      >
-        <div>
-          <label className="block font-medium">ZIP</label>
-          <input
-            type="text"
-            {...register("zip", { required: "ZIP is required" })}
-            className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
-            placeholder="ZIP Code"
-          />
-          {errors.zip && (
-            <p className="text-red-500 text-sm">{errors.zip.message}</p>
-          )}
-        </div>
+    <>
+      <main className="mx-auto p-8 space-y-6 bg-[#005cbe]">
+        <h1 className="text-4xl text-center font-normal text-[#fff] w-full">
+          Find your representatives closest to you
+        </h1>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-[#F2B124] text-white rounded-lg py-2 font-medium hover:bg-[#e0a91f] transition disabled:opacity-50"
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex items-center gap-4 p-6 rounded-xl max-w-lg mx-auto"
         >
-          {loading ? "Searching..." : "Find"}
-        </button>
-      </form>
+          <label className="text-white font-medium whitespace-nowrap">
+            Enter Your Zip Code:
+          </label>
 
-      {error && <p className="text-white-500 text-center">{error}</p>}
+          <input
+            type="number"
+            {...register("zip", {
+              required: "ZIP is required",
+              minLength: { value: 5, message: "ZIP must be 5 digits" },
+              maxLength: { value: 5, message: "ZIP must be 5 digits" },
+            })}
+            className="flex-1 bg-white p-[7px] focus:outline-none focus:ring-2"
+          />
 
-      {showModal && (
-  <div className="fixed inset-0 bg-gray-200 bg-opacity-50 flex justify-center items-center z-50">
-    <div className="bg-white rounded-xl p-6 max-w-md w-full relative">
-      <button
-        onClick={() => setShowModal(false)}
-        className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold cursor-pointer"
-      >
-        ✕
-      </button>
+          <button
+            type="submit"
+            disabled={loading || zipValue.length !== 5}
+            className={`bg-white cursor-pointer text-[#1668a8] p-[7px] rounded-sm px-4 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#4888cd] disabled:text-white`}
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
+        </form>
+      </main>
 
-      <h2 className="text-xl font-semibold mb-4">Users in ZIP</h2>
+      {error && <p className="text-white-500 text-center mt-3 text-xl">{error}</p>}
 
-      {users.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b">
-                <th className="px-4 py-2">Email</th>
-                <th className="px-4 py-2">Phone</th>
+      {users.length > 0 && (
+        <div className="overflow-x-auto py-10">
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            Users in ZIP
+          </h2>
+          <table className="w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden text-left border-collapse">
+            <thead className="bg-gray-800 text-white">
+              <tr>
+                <th className="px-6 py-3 text-left font-semibold uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left font-semibold uppercase tracking-wider">
+                  Phone
+                </th>
               </tr>
             </thead>
-           <tbody>
-  {users.map((user, index) => (
-    <tr
-      key={index}
-      className="border-b even:bg-gray-50 hover:bg-gray-100"
-    >
-      <td className="px-4 py-2">
-        <a
-          href={`mailto:${user.email}`}
-          className="cursor-pointer hover:underline"
-        >
-          {user.email}
-        </a>
-      </td>
-      <td className="px-4 py-2">
-        <a
-          href={`tel:${user.phone}`}
-          className="cursor-pointer hover:underline"
-        >
-          {user.phone}
-        </a>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+            <tbody>
+              {users.map((user, index) => (
+                <tr
+                  key={index}
+                  className={`transition-colors duration-200 ${
+                    index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                  } hover:bg-yellow-50`}
+                >
+                  <td className="px-6 py-4 text-gray-700">
+                    <a
+                      href={`mailto:${defaultEmail},${user.email}`}
+                      className="hover:underline text-blue-600"
+                    >
+                      {user.email}
+                    </a>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700">
+                    <a
+                      href={`tel:${user.phone}`}
+                      className="hover:underline text-blue-600"
+                    >
+                      {user.phone}
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
-      ) : (
-        <p>No users found.</p>
       )}
-    </div>
-  </div>
-)}
-
-    </main>
+    </>
   );
 }
