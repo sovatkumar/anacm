@@ -84,11 +84,7 @@ export default function ZipSearch() {
             {loading ? "Searching..." : "Search"}
           </button>
 
-          {errors.zip && (
-            <p className="text-red-200 text-sm text-center sm:text-left w-full">
-              {errors.zip.message}
-            </p>
-          )}
+          
         </form>
       </main>
 
