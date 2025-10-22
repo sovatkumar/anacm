@@ -100,7 +100,7 @@ export const UserList = () => {
 
   return (
     <div className="h-screen py-3">
-      <table className="min-w-[800px] mx-auto border border-gray-200 rounded-2xl overflow-hidden shadow-sm text-sm text-gray-700">
+      <table className="min-w-[800px] mx-auto border border-gray-200 rounded-2xl overflow-hidden shadow-sm text-sm text-gray-700 dark:shadow-none dark:hover:bg-transparent">
         <thead className="bg-gray-100 text-gray-800 uppercase text-xs tracking-wide">
           <tr>
             <th className="px-6 py-3 text-left">Email</th>
@@ -111,7 +111,7 @@ export const UserList = () => {
         </thead>
         <tbody>
           {userData.map((user) => (
-            <tr key={user._id} className="border-t border-gray-100 hover:bg-gray-100 transition-all duration-200">
+            <tr key={user._id} className="border-t border-gray-100 hover:bg-gray-100 dark:hover:bg-none dark:bg-white transition-all duration-200">
               <td className="px-6 py-3">{user.email.toLowerCase()}</td>
               <td className="px-6 py-3">{user.phone}</td>
               <td className="px-6 py-3">
@@ -150,35 +150,35 @@ export const UserList = () => {
             >
               ✕
             </button>
-            <h2 className="text-xl font-semibold mb-4">Edit User</h2>
+            <h2 className="text-xl font-semibold mb-4 dark:text-black">Edit User</h2>
             <form onSubmit={handleEditSubmit} className="space-y-4">
               <div>
-                <label className="block font-medium">Email</label>
+                <label className="block font-medium dark:text-black">Email</label>
                 <input
                   type="email"
-                  className="w-full border border-gray-300 rounded-lg p-2"
+                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                 />
               </div>
               <div>
-                <label className="block font-medium">Phone</label>
+                <label className="block font-medium dark:text-black">Phone</label>
                 <input
                   type="text"
-                  className="w-full border border-gray-300 rounded-lg p-2"
+                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   required
                 />
               </div>
               <div>
-                <label className="block font-medium">ZIP Ranges</label>
+                <label className="block font-medium dark:text-black">ZIP Ranges</label>
                 {formData?.zipRanges?.map((z, i) => (
                   <div key={i} className="flex gap-2 mb-2">
                     <input
                       type="number"
-                      className="flex-1 border border-gray-300 rounded-lg p-2"
+                      className="flex-1 border border-gray-300 rounded-lg p-2 dark:text-black"
                       value={z.start}
                       onChange={(e) => handleZipRangeChange(i, "start", e.target.value)}
                       required
@@ -186,7 +186,7 @@ export const UserList = () => {
                     <span>-</span>
                     <input
                       type="number"
-                      className="flex-1 border border-gray-300 rounded-lg p-2"
+                      className="flex-1 border border-gray-300 rounded-lg p-2 dark:text-black"
                       value={z.end}
                       onChange={(e) => handleZipRangeChange(i, "end", e.target.value)}
                       required

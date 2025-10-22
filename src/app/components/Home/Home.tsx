@@ -81,7 +81,7 @@ export default function Dashboard() {
     <div className="max-w-2xl mx-auto p-6 rounded-2xl h-screen m-auto flex items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 max-w-lg mx-auto p-6 border border-gray-200 rounded-xl shadow-sm bg-white"
+        className="space-y-4 max-w-lg mx-auto p-6 border border-gray-200 rounded-xl shadow-sm bg-white dark:text-black"
       >
         <div>
           <label className="block font-medium">Name</label>
