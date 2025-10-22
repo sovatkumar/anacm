@@ -54,15 +54,15 @@ export default function ZipSearch() {
   return (
     <>
       <main className="mx-auto p-8 space-y-6 bg-[#005cbe]">
-        <h1 className="text-4xl text-center font-normal text-[#fff] w-full">
+        <h1 className="text-2xl sm:text-4xl text-center font-normal text-[#fff] w-full">
           Find a representative closest to you
         </h1>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex items-center gap-4 p-6 rounded-xl max-w-lg mx-auto"
+          className="flex flex-col sm:flex-row items-center gap-4 sm:p-6 rounded-xl max-w-lg mx-auto bg-[#005cbe]"
         >
-          <label className="text-white font-medium whitespace-nowrap">
+          <label className="text-white font-medium whitespace-nowrap text-center sm:text-left">
             Enter Your Zip Code:
           </label>
 
@@ -73,73 +73,88 @@ export default function ZipSearch() {
               minLength: { value: 5, message: "ZIP must be 5 digits" },
               maxLength: { value: 5, message: "ZIP must be 5 digits" },
             })}
-            className="flex-1 bg-white p-[7px] focus:outline-none focus:ring-2 dark:text-black"
+            className="w-full sm:flex-1 bg-white p-[7px] focus:outline-none focus:ring-2 dark:text-black"
           />
 
           <button
             type="submit"
             disabled={loading || zipValue.length !== 5}
-            className={`bg-white cursor-pointer text-[#1668a8] p-[7px] rounded-sm px-4 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#4888cd] disabled:text-white`}
+            className={`w-full sm:w-auto bg-white cursor-pointer text-[#1668a8] p-[7px] rounded-md px-4 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#4888cd] disabled:text-white`}
           >
             {loading ? "Searching..." : "Search"}
           </button>
+
+          {errors.zip && (
+            <p className="text-red-200 text-sm text-center sm:text-left w-full">
+              {errors.zip.message}
+            </p>
+          )}
         </form>
       </main>
 
       {error && (
-        <p className="dark:text-white text-center mt-3 text-xl">{error}</p>
+        <p className="dark:text-white text-center mt-3 text-lg sm:text-xl px-4">
+          {error}
+        </p>
       )}
 
       {users.length > 0 && (
-        <div className="overflow-x-auto pt-4 text-center">
-          <h2 className="text-2xl font-semibold mb-4">Dealer</h2>
-          <table className="w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden text-center border-collapse">
-            <thead className="bg-gray-800 text-white">
-              <tr>
-                <th className="px-6 py-3 text-center font-semibold uppercase tracking-wider">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-center font-semibold uppercase tracking-wider">
-                  Email
-                </th>
-                <th className="px-6 py-3 text-center font-semibold uppercase tracking-wider">
-                  Phone
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user, index) => (
-                <tr
-                  key={index}
-                  className={`transition-colors duration-200 ${
-                    index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  } hover:bg-yellow-50`}
-                >
-                  <td className="px-6 py-4 text-gray-700">{user.name}</td>
-                  <td className="px-6 py-4 text-gray-700">
-                    <a
-                      href={`mailto:${defaultEmail},${user.email.toLowerCase()}`}
-                      className="hover:underline text-blue-600"
-                    >
-                      {user.email.toLowerCase()}
-                    </a>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700">
-                    <a
-                      href={`tel:${user.phone}`}
-                      className="hover:underline text-blue-600"
-                    >
-                      {user.phone}
-                    </a>
-                  </td>
+        <div className="overflow-x-auto pt-4 text-center px-2 sm:px-0">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">Dealer</h2>
+          <div className="w-full sm:w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+            <table className="min-w-full text-center border-collapse text-sm sm:text-base">
+              <thead className="bg-gray-800 text-white">
+                <tr>
+                  <th className="px-3 sm:px-6 py-3 font-semibold uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 font-semibold uppercase tracking-wider">
+                    Email
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 font-semibold uppercase tracking-wider">
+                    Phone
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="mt-4 text-center">
-            <h2 className="text-2xl font-semibold mb-4">Clinical Educator</h2>
-            <div className="inline-block bg-white rounded-xl shadow-md border px-8 py-6 text-gray-700">
-              <p className="font-medium text-lg">Ana Endsjo</p>
+              </thead>
+              <tbody>
+                {users.map((user, index) => (
+                  <tr
+                    key={index}
+                    className={`transition-colors duration-200 ${
+                      index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                    } hover:bg-yellow-50`}
+                  >
+                    <td className="px-3 sm:px-6 py-4 text-gray-700 break-words">
+                      {user.name}
+                    </td>
+                    <td className="px-3 sm:px-6 py-4 text-gray-700 break-words">
+                      <a
+                        href={`mailto:${defaultEmail},${user.email.toLowerCase()}`}
+                        className="hover:underline text-blue-600"
+                      >
+                        {user.email.toLowerCase()}
+                      </a>
+                    </td>
+                    <td className="px-3 sm:px-6 py-4 text-gray-700">
+                      <a
+                        href={`tel:${user.phone}`}
+                        className="hover:underline text-blue-600"
+                      >
+                        {user.phone}
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-4 text-center px-4">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+              Clinical Educator
+            </h2>
+            <div className="inline-block bg-white rounded-xl shadow-md border px-6 sm:px-8 py-6 text-gray-700">
+              <p className="font-medium text-base sm:text-lg">Ana Endsjo</p>
               <a
                 href="mailto:ana.endsjo@matrixseatingusa.com"
                 className="text-blue-600 hover:underline block mt-1"
