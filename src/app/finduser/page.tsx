@@ -91,18 +91,18 @@ export default function ZipSearch() {
       )}
 
       {users.length > 0 && (
-        <div className="overflow-x-auto py-10 text-center">
-          <h2 className="text-2xl font-semibold mb-6">Dealer</h2>
-          <table className="w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden text-left border-collapse mb-10">
+        <div className="overflow-x-auto pt-4 text-center">
+          <h2 className="text-2xl font-semibold mb-4">Dealer</h2>
+          <table className="w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden text-center border-collapse">
             <thead className="bg-gray-800 text-white">
               <tr>
-                <th className="px-6 py-3 text-left font-semibold uppercase tracking-wider">
+                <th className="px-6 py-3 text-center font-semibold uppercase tracking-wider">
                   Name
                 </th>
-                <th className="px-6 py-3 text-left font-semibold uppercase tracking-wider">
+                <th className="px-6 py-3 text-center font-semibold uppercase tracking-wider">
                   Email
                 </th>
-                <th className="px-6 py-3 text-left font-semibold uppercase tracking-wider">
+                <th className="px-6 py-3 text-center font-semibold uppercase tracking-wider">
                   Phone
                 </th>
               </tr>
@@ -136,9 +136,9 @@ export default function ZipSearch() {
               ))}
             </tbody>
           </table>
-          <div className="mt-10 text-center">
+          <div className="mt-4 text-center">
             <h2 className="text-2xl font-semibold mb-4">Clinical Educator</h2>
-            <div className="inline-block bg-white rounded-xl shadow-md px-8 py-6 text-gray-700">
+            <div className="inline-block bg-white rounded-xl shadow-md border px-8 py-6 text-gray-700">
               <p className="font-medium text-lg">Ana Endsjo</p>
               <a
                 href="mailto:ana.endsjo@matrixseatingusa.com"
