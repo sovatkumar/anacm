@@ -33,6 +33,7 @@ export default function Dashboard() {
     control,
     name: "zipRanges",
   });
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       const zipRanges = data.zipRanges.map((r) => ({
@@ -73,10 +74,10 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 rounded-2xl h-screen m-auto flex items-center">
+    <div className="max-w-2xl mx-auto p-4 sm:p-6 rounded-2xl h-auto min-h-screen flex items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 max-w-lg mx-auto p-6 border border-gray-200 rounded-xl shadow-sm bg-white dark:text-black"
+        className="space-y-4 w-full max-w-lg mx-auto p-4 sm:p-6 border border-gray-200 rounded-xl shadow-sm bg-white dark:text-black"
       >
         <div>
           <label className="block font-medium">Name</label>
@@ -116,35 +117,41 @@ export default function Dashboard() {
             <p className="text-red-500 text-sm">{errors.phone.message}</p>
           )}
         </div>
+
         <div className="space-y-3">
           <label className="block font-medium">ZIP Ranges</label>
           {fields.map((field, index) => (
-            <div key={field.id} className="flex items-center gap-2">
-              <div>
+            <div
+              key={field.id}
+              className="flex flex-col sm:flex-row sm:items-center gap-2"
+            >
+              <div className="flex-1">
                 <input
                   type="number"
                   placeholder="Start"
                   {...register(`zipRanges.${index}.start` as const, {
                     required: "Start ZIP required",
                   })}
-                  className="flex-1 border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
+                  className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
                 />
-
                 {errors.zipRanges?.[index]?.start && (
                   <p className="text-red-500 text-sm">
                     {errors.zipRanges[index]?.start?.message}
                   </p>
                 )}
               </div>
-              <span>-</span>
-              <div>
+
+              <span className="hidden sm:inline">-</span>
+              <span className="sm:hidden text-center">to</span>
+
+              <div className="flex-1">
                 <input
                   type="number"
                   placeholder="End"
                   {...register(`zipRanges.${index}.end` as const, {
                     required: "End ZIP required",
                   })}
-                  className="flex-1 border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
+                  className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
                 />
                 {errors.zipRanges?.[index]?.end && (
                   <p className="text-red-500 text-sm">
@@ -152,17 +159,19 @@ export default function Dashboard() {
                   </p>
                 )}
               </div>
+
               {index > 0 && (
-              <button
-                type="button"
-                className="text-red-500 font-bold cursor-pointer"
-                onClick={() => remove(index)}
-              >
-                ✕
-              </button>
+                <button
+                  type="button"
+                  className="text-red-500 font-bold cursor-pointer self-center sm:self-auto"
+                  onClick={() => remove(index)}
+                >
+                  ✕
+                </button>
               )}
             </div>
           ))}
+
           <button
             type="button"
             onClick={() => append({ start: "", end: "" })}
@@ -179,7 +188,7 @@ export default function Dashboard() {
           Save
         </button>
 
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <button
             type="button"
             className="w-full bg-[#F2B124] text-white rounded-lg py-2 font-medium hover:bg-[#e0a91f] transition cursor-pointer"
