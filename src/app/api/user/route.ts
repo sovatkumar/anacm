@@ -1,28 +1,83 @@
 import clientPromise from '@/app/lib/mongodb';
 
-export async function POST(req:any) {
+export async function POST(req: any) {
   try {
     const body = await req.json();
-    const { name, email, zip, phone } = body;
-    if (!name || !email || !zip || !phone) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
+    const { name, email, phone, zipRanges } = body;
+
+    // ✅ Basic validation
+    if (!name || !email || !phone || !zipRanges || !Array.isArray(zipRanges) || zipRanges.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Missing or invalid required fields" }),
+        { status: 400 }
+      );
     }
+
+    // ✅ Validate each range
+    for (const range of zipRanges) {
+      if (
+        typeof range.start !== "number" ||
+        typeof range.end !== "number" ||
+        range.start > range.end
+      ) {
+        return new Response(
+          JSON.stringify({ error: "Invalid ZIP range format" }),
+          { status: 400 }
+        );
+      }
+    }
+
     const client = await clientPromise;
     const db = client.db();
-    const collection = db.collection('user');
-    await collection.insertOne({
-      name,
-      email,
-      zip,
-      phone,
-      createdAt: new Date()
+    const collection = db.collection("user");
+
+    // ✅ Check if user already exists (based on name or email)
+    const existingUser = await collection.findOne({
+      $or: [{ name }, { email }],
     });
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
+
+    if (existingUser) {
+      // ✅ Update existing user
+      await collection.updateOne(
+        { _id: existingUser._id },
+        {
+          $set: {
+            phone,
+            zipRanges,
+            updatedAt: new Date(),
+          },
+        }
+      );
+
+      return new Response(
+        JSON.stringify({ success: true, message: "User updated successfully" }),
+        { status: 200 }
+      );
+    } else {
+      // ✅ Create new user
+      await collection.insertOne({
+        name,
+        email,
+        phone,
+        zipRanges,
+        createdAt: new Date(),
+      });
+
+      return new Response(
+        JSON.stringify({ success: true, message: "User created successfully" }),
+        { status: 201 }
+      );
+    }
   } catch (error) {
-    console.error('Add Dispute Error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to add dispute' }), { status: 500 });
+    console.error("Add user Error:", error);
+    return new Response(
+      JSON.stringify({ error: "Failed to add or update user" }),
+      { status: 500 }
+    );
   }
 }
+
+
 
 
 export async function GET(req: Request) {
@@ -30,9 +85,8 @@ export async function GET(req: Request) {
     const client = await clientPromise;
     const db = client.db();
     const collection = db.collection("user");
-
     const { searchParams } = new URL(req.url);
-    const zip = searchParams.get("zip");
+    const zip = Number(searchParams.get("zip")); // convert to number
 
     if (!zip) {
       return new Response(
@@ -40,15 +94,21 @@ export async function GET(req: Request) {
         { status: 400 }
       );
     }
-
     const users: any = await collection
-      .find({ zip })
+      .find({
+        zipRanges: {
+          $elemMatch: {
+            start: { $lte: zip },
+            end: { $gte: zip },
+          },
+        },
+      })
       .project({ _id: 0, email: 1, phone: 1 })
       .toArray();
 
     if (users.length === 0) {
       return new Response(
-        JSON.stringify({ message: "Invalid zip code", data: [] }),
+        JSON.stringify({ message: "No users found for this ZIP", data: [] }),
         { status: 404 }
       );
     }

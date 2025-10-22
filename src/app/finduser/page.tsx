@@ -12,7 +12,7 @@ type User = {
   phone: string;
 };
 export default function ZipSearch() {
-  const defaultEmail=process.env.NEXT_PUBLIC_DEFAULT_EMAIL
+  const defaultEmail = process.env.NEXT_PUBLIC_DEFAULT_EMAIL;
   const {
     register,
     handleSubmit,
@@ -24,7 +24,6 @@ export default function ZipSearch() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showModal, setShowModal] = useState(false);
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setLoading(true);
@@ -38,7 +37,6 @@ export default function ZipSearch() {
         setError(result.message || "Invalid Zip code");
       } else {
         setUsers(result.data);
-        setShowModal(true);
       }
     } catch (err) {
       console.error(err);
@@ -86,7 +84,9 @@ export default function ZipSearch() {
         </form>
       </main>
 
-      {error && <p className="text-white-500 text-center mt-3 text-xl">{error}</p>}
+      {error && (
+        <p className="text-white-500 text-center mt-3 text-xl">{error}</p>
+      )}
 
       {users.length > 0 && (
         <div className="overflow-x-auto py-10">

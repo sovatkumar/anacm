@@ -4,11 +4,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+type ZipRange = {
+  start: number;
+  end: number;
+};
+
 type User = {
   _id: string;
   email: string;
   phone: string;
-  zip: string;
+  zipRanges: ZipRange[];
 };
 
 export const UserList = () => {
@@ -16,7 +21,11 @@ export const UserList = () => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [formData, setFormData] = useState({ email: "", phone: "", zip: "" });
+  const [formData, setFormData] = useState<{
+    email: string;
+    phone: string;
+    zipRanges: ZipRange[];
+  }>({ email: "", phone: "", zipRanges: [] });
 
   const fetchUser = async () => {
     setLoading(true);
@@ -36,7 +45,6 @@ export const UserList = () => {
   }, []);
 
   const handleDelete = async (id: string) => {
-    // if (!confirm("Are you sure you want to delete this user?")) return;
     try {
       await axios.delete(`/api/user/${id}`);
       toast.success("User deleted successfully");
@@ -49,8 +57,28 @@ export const UserList = () => {
 
   const handleEditClick = (user: User) => {
     setSelectedUser(user);
-    setFormData({ email: user.email, phone: user.phone, zip: user.zip });
+    setFormData({
+      email: user.email,
+      phone: user.phone,
+      zipRanges: user.zipRanges,
+    });
     setShowModal(true);
+  };
+
+  const handleZipRangeChange = (index: number, field: "start" | "end", value: string) => {
+    const newRanges = [...formData.zipRanges];
+    newRanges[index][field] = Number(value);
+    setFormData({ ...formData, zipRanges: newRanges });
+  };
+
+  const addZipRange = () => {
+    setFormData({ ...formData, zipRanges: [...formData.zipRanges, { start: 0, end: 0 }] });
+  };
+
+  const removeZipRange = (index: number) => {
+    const newRanges = [...formData.zipRanges];
+    newRanges.splice(index, 1);
+    setFormData({ ...formData, zipRanges: newRanges });
   };
 
   const handleEditSubmit = async (e: React.FormEvent) => {
@@ -72,33 +100,37 @@ export const UserList = () => {
 
   return (
     <div className="h-screen py-3">
-      <table className="min-w-[800px] mx-auto border border-gray-200 rounded-2xl overflow-hidden shadow-sm text-sm text-gray-700 dark:border-white">
-        <thead className="bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 uppercase text-xs tracking-wide">
+      <table className="min-w-[800px] mx-auto border border-gray-200 rounded-2xl overflow-hidden shadow-sm text-sm text-gray-700">
+        <thead className="bg-gray-100 text-gray-800 uppercase text-xs tracking-wide">
           <tr>
             <th className="px-6 py-3 text-left">Email</th>
             <th className="px-6 py-3 text-left">Phone</th>
-            <th className="px-6 py-3 text-left">ZIP</th>
+            <th className="px-6 py-3 text-left">ZIP Ranges</th>
             <th className="px-6 py-3 text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           {userData.map((user) => (
-            <tr
-              key={user._id}
-              className="border-t border-gray-100  hover:bg-gray-100 transition-all duration-200 dark:hover:bg-transparent"
-            >
-              <td className="px-6 py-3 dark:text-white">{user.email.toLowerCase()}</td>
-              <td className="px-6 py-3 dark:text-white">{user.phone}</td>
-              <td className="px-6 py-3 dark:text-white">{user.zip}</td>
+            <tr key={user._id} className="border-t border-gray-100 hover:bg-gray-100 transition-all duration-200">
+              <td className="px-6 py-3">{user.email.toLowerCase()}</td>
+              <td className="px-6 py-3">{user.phone}</td>
+              <td className="px-6 py-3">
+                {user?.zipRanges?.map((z, i) => (
+                  <span key={i}>
+                    {z.start.toString().padStart(5, "0")}-{z.end.toString().padStart(5, "0")}
+                    {i < user.zipRanges.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </td>
               <td className="px-6 py-3 text-center space-x-3">
                 <button
-                  className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-105 transition-all duration-150 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-105 transition cursor-pointer"
                   onClick={() => handleEditClick(user)}
                 >
                   Edit
                 </button>
                 <button
-                  className="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 hover:scale-105 transition-all duration-150 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 hover:scale-105 transition cursor-pointer"
                   onClick={() => handleDelete(user._id)}
                 >
                   Delete
@@ -109,59 +141,64 @@ export const UserList = () => {
         </tbody>
       </table>
 
-      {/* Edit Modal */}
       {showModal && selectedUser && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full relative">
+          <div className="bg-white rounded-xl p-6 max-w-md w-full relative min-w-fit">
             <button
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold cursor-pointer"
               onClick={() => setShowModal(false)}
             >
               ✕
             </button>
-            <h2 className="text-xl font-semibold mb-4 dark:text-black">
-              Edit User
-            </h2>
+            <h2 className="text-xl font-semibold mb-4">Edit User</h2>
             <form onSubmit={handleEditSubmit} className="space-y-4">
               <div>
-                <label className="block font-medium dark:text-black">
-                  Email
-                </label>
+                <label className="block font-medium">Email</label>
                 <input
                   type="email"
-                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
+                  className="w-full border border-gray-300 rounded-lg p-2"
                   value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                 />
               </div>
               <div>
-                <label className="block font-medium dark:text-black">
-                  Phone
-                </label>
+                <label className="block font-medium">Phone</label>
                 <input
                   type="text"
-                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
+                  className="w-full border border-gray-300 rounded-lg p-2"
                   value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   required
                 />
               </div>
               <div>
-                <label className="block font-medium dark:text-black">ZIP</label>
-                <input
-                  type="text"
-                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
-                  value={formData.zip}
-                  onChange={(e) =>
-                    setFormData({ ...formData, zip: e.target.value })
-                  }
-                  required
-                />
+                <label className="block font-medium">ZIP Ranges</label>
+                {formData?.zipRanges?.map((z, i) => (
+                  <div key={i} className="flex gap-2 mb-2">
+                    <input
+                      type="number"
+                      className="flex-1 border border-gray-300 rounded-lg p-2"
+                      value={z.start}
+                      onChange={(e) => handleZipRangeChange(i, "start", e.target.value)}
+                      required
+                    />
+                    <span>-</span>
+                    <input
+                      type="number"
+                      className="flex-1 border border-gray-300 rounded-lg p-2"
+                      value={z.end}
+                      onChange={(e) => handleZipRangeChange(i, "end", e.target.value)}
+                      required
+                    />
+                    <button type="button" onClick={() => removeZipRange(i)} className="text-red-500 font-bold cursor-pointer">
+                      ✕
+                    </button>
+                  </div>
+                ))}
+                <button type="button" onClick={addZipRange} className="text-blue-600 underline text-sm cursor-pointer">
+                  + Add another ZIP range
+                </button>
               </div>
               <button
                 type="submit"

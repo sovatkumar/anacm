@@ -1,12 +1,5 @@
 import clientPromise from "@/app/lib/mongodb";
 
-type UserData = {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  zip: string;
-};
-
 export async function GET() {
   try {
     const client = await clientPromise;
@@ -14,7 +7,7 @@ export async function GET() {
     const collection = db.collection("user");
     const users: any = await collection
       .find({})
-      .project({ _id: 1, name: 1, email: 1, phone: 1, zip: 1 })
+      .project({ _id: 1, name: 1, email: 1, phone: 1, zip: 1,zipRanges:1 })
       .toArray();
 
     if (!users.length) {
