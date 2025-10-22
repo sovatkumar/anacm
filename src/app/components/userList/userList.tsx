@@ -13,6 +13,7 @@ type User = {
   _id: string;
   email: string;
   phone: string;
+  name:string;
   zipRanges: ZipRange[];
 };
 
@@ -103,6 +104,7 @@ export const UserList = () => {
       <table className="min-w-[800px] mx-auto border border-gray-200 rounded-2xl overflow-hidden shadow-sm text-sm text-gray-700 dark:shadow-none dark:hover:bg-transparent">
         <thead className="bg-gray-100 text-gray-800 uppercase text-xs tracking-wide">
           <tr>
+            <th className="px-6 py-3 text-left">Name</th>
             <th className="px-6 py-3 text-left">Email</th>
             <th className="px-6 py-3 text-left">Phone</th>
             <th className="px-6 py-3 text-left">ZIP Ranges</th>
@@ -112,6 +114,7 @@ export const UserList = () => {
         <tbody>
           {userData.map((user) => (
             <tr key={user._id} className="border-t border-gray-100 hover:bg-gray-100 dark:hover:bg-none dark:bg-white transition-all duration-200">
+              <td className="px-6 py-3">{user.name}</td>
               <td className="px-6 py-3">{user.email.toLowerCase()}</td>
               <td className="px-6 py-3">{user.phone}</td>
               <td className="px-6 py-3">

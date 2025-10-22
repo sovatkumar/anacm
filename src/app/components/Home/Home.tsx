@@ -33,7 +33,6 @@ export default function Dashboard() {
     control,
     name: "zipRanges",
   });
-console.log(fields,"fields++++")
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       const zipRanges = data.zipRanges.map((r) => ({
