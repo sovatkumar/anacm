@@ -159,6 +159,7 @@ export default function Dashboard() {
                   </p>
                 )}
               </div>
+              {index > 0 && (
               <button
                 type="button"
                 className="text-red-500 font-bold cursor-pointer"
@@ -166,6 +167,7 @@ export default function Dashboard() {
               >
                 ✕
               </button>
+              )}
             </div>
           ))}
           <button
