@@ -4,16 +4,12 @@ export async function POST(req: any) {
   try {
     const body = await req.json();
     const { name, email, phone, zipRanges } = body;
-
-    // ✅ Basic validation
     if (!name || !email || !phone || !zipRanges || !Array.isArray(zipRanges) || zipRanges.length === 0) {
       return new Response(
         JSON.stringify({ error: "Missing or invalid required fields" }),
         { status: 400 }
       );
     }
-
-    // ✅ Validate each range
     for (const range of zipRanges) {
       if (
         typeof range.start !== "number" ||
@@ -30,8 +26,6 @@ export async function POST(req: any) {
     const client = await clientPromise;
     const db = client.db();
     const collection = db.collection("user");
-
-    // ✅ Always create new user, allow duplicates
     await collection.insertOne({
       name,
       email,
@@ -54,17 +48,13 @@ export async function POST(req: any) {
   }
 }
 
-
-
-
-
 export async function GET(req: Request) {
   try {
     const client = await clientPromise;
     const db = client.db();
     const collection = db.collection("user");
     const { searchParams } = new URL(req.url);
-    const zip = Number(searchParams.get("zip")); // convert to number
+    const zip = Number(searchParams.get("zip"));
 
     if (!zip) {
       return new Response(
@@ -81,7 +71,7 @@ export async function GET(req: Request) {
           },
         },
       })
-      .project({ _id: 0, email: 1, phone: 1 })
+      .project({ _id: 0, email: 1, phone: 1,name:1 })
       .toArray();
 
     if (users.length === 0) {

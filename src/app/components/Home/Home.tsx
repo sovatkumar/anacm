@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useState } from "react";
 
 type ZipRange = {
   start: string;
@@ -30,16 +29,13 @@ export default function Dashboard() {
       zipRanges: [{ start: "", end: "" }],
     },
   });
-
-  // Dynamic zip range fields
   const { fields, append, remove } = useFieldArray({
     control,
     name: "zipRanges",
   });
-
+console.log(fields,"fields++++")
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      // convert string to number for backend
       const zipRanges = data.zipRanges.map((r) => ({
         start: Number(r.start),
         end: Number(r.end),
@@ -121,8 +117,6 @@ export default function Dashboard() {
             <p className="text-red-500 text-sm">{errors.phone.message}</p>
           )}
         </div>
-
-        {/* ZIP RANGES */}
         <div className="space-y-3">
           <label className="block font-medium">ZIP Ranges</label>
           {fields.map((field, index) => (

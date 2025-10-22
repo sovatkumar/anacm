@@ -10,7 +10,9 @@ type FormData = {
 type User = {
   email: string;
   phone: string;
+  name: string;
 };
+
 export default function ZipSearch() {
   const defaultEmail = process.env.NEXT_PUBLIC_DEFAULT_EMAIL;
   const {
@@ -34,7 +36,7 @@ export default function ZipSearch() {
       const result = await res.json();
 
       if (!res.ok) {
-        setError(result.message || "Invalid Zip code");
+        setError(result.message || "Invalid ZIP code");
       } else {
         setUsers(result.data);
       }
@@ -53,7 +55,7 @@ export default function ZipSearch() {
     <>
       <main className="mx-auto p-8 space-y-6 bg-[#005cbe]">
         <h1 className="text-4xl text-center font-normal text-[#fff] w-full">
-          Find your representatives closest to you
+          Find a representative closest to you
         </h1>
 
         <form
@@ -85,17 +87,18 @@ export default function ZipSearch() {
       </main>
 
       {error && (
-        <p className="text-white-500 text-center mt-3 text-xl">{error}</p>
+        <p className="dark:text-white text-center mt-3 text-xl">{error}</p>
       )}
 
       {users.length > 0 && (
-        <div className="overflow-x-auto py-10">
-          <h2 className="text-xl font-semibold mb-4 text-center">
-            Users in ZIP
-          </h2>
-          <table className="w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden text-left border-collapse">
+        <div className="overflow-x-auto py-10 text-center">
+          <h2 className="text-2xl font-semibold mb-6">Dealer</h2>
+          <table className="w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden text-left border-collapse mb-10">
             <thead className="bg-gray-800 text-white">
               <tr>
+                <th className="px-6 py-3 text-left font-semibold uppercase tracking-wider">
+                  Name
+                </th>
                 <th className="px-6 py-3 text-left font-semibold uppercase tracking-wider">
                   Email
                 </th>
@@ -112,9 +115,10 @@ export default function ZipSearch() {
                     index % 2 === 0 ? "bg-gray-50" : "bg-white"
                   } hover:bg-yellow-50`}
                 >
+                  <td className="px-6 py-4 text-gray-700">{user.name}</td>
                   <td className="px-6 py-4 text-gray-700">
                     <a
-                      href={`mailto:${defaultEmail},${user.email.toLocaleLowerCase()}`}
+                      href={`mailto:${defaultEmail},${user.email.toLowerCase()}`}
                       className="hover:underline text-blue-600"
                     >
                       {user.email.toLowerCase()}
@@ -132,6 +136,18 @@ export default function ZipSearch() {
               ))}
             </tbody>
           </table>
+          <div className="mt-10 text-center">
+            <h2 className="text-2xl font-semibold mb-4">Clinical Educator</h2>
+            <div className="inline-block bg-white rounded-xl shadow-md px-8 py-6 text-gray-700">
+              <p className="font-medium text-lg">Ana Endsjo</p>
+              <a
+                href="mailto:ana.endsjo@matrixseatingusa.com"
+                className="text-blue-600 hover:underline block mt-1"
+              >
+                ana.endsjo@matrixseatingusa.com
+              </a>
+            </div>
+          </div>
         </div>
       )}
     </>
