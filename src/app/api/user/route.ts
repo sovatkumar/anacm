@@ -31,51 +31,29 @@ export async function POST(req: any) {
     const db = client.db();
     const collection = db.collection("user");
 
-    // ✅ Check if user already exists (based on name or email)
-    const existingUser = await collection.findOne({
-      $or: [{ name }, { email }],
+    // ✅ Always create new user, allow duplicates
+    await collection.insertOne({
+      name,
+      email,
+      phone,
+      zipRanges,
+      createdAt: new Date(),
     });
 
-    if (existingUser) {
-      // ✅ Update existing user
-      await collection.updateOne(
-        { _id: existingUser._id },
-        {
-          $set: {
-            phone,
-            zipRanges,
-            updatedAt: new Date(),
-          },
-        }
-      );
+    return new Response(
+      JSON.stringify({ success: true, message: "User created successfully" }),
+      { status: 201 }
+    );
 
-      return new Response(
-        JSON.stringify({ success: true, message: "User updated successfully" }),
-        { status: 200 }
-      );
-    } else {
-      // ✅ Create new user
-      await collection.insertOne({
-        name,
-        email,
-        phone,
-        zipRanges,
-        createdAt: new Date(),
-      });
-
-      return new Response(
-        JSON.stringify({ success: true, message: "User created successfully" }),
-        { status: 201 }
-      );
-    }
   } catch (error) {
     console.error("Add user Error:", error);
     return new Response(
-      JSON.stringify({ error: "Failed to add or update user" }),
+      JSON.stringify({ error: "Failed to add user" }),
       { status: 500 }
     );
   }
 }
+
 
 
 
