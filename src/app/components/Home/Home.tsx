@@ -84,7 +84,7 @@ export default function Dashboard() {
           <input
             type="text"
             {...register("name", { required: "Name is required" })}
-            className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
+            className="w-full border border-[#9E1E63] rounded-lg p-2 focus:outline-none focus:border-[#9E1E63]"
             placeholder="Enter Your Name"
           />
           {errors.name && (
@@ -97,7 +97,7 @@ export default function Dashboard() {
           <input
             type="email"
             {...register("email", { required: "Email is required" })}
-            className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
+            className="w-full border border-[#9E1E63] rounded-lg p-2 focus:outline-none focus:border-[#9E1E63]"
             placeholder="Enter Your Email"
           />
           {errors.email && (
@@ -110,7 +110,7 @@ export default function Dashboard() {
           <input
             type="tel"
             {...register("phone", { required: "Phone is required" })}
-            className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
+            className="w-full border border-[#9E1E63] rounded-lg p-2 focus:outline-none focus:border-[#9E1E63]"
             placeholder="Enter Phone Number"
           />
           {errors.phone && (
@@ -132,7 +132,7 @@ export default function Dashboard() {
                   {...register(`zipRanges.${index}.start` as const, {
                     required: "Start ZIP required",
                   })}
-                  className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
+                  className="w-full border border-[#9E1E63] rounded-lg p-2 focus:outline-none focus:border-[#9E1E63]"
                 />
                 {errors.zipRanges?.[index]?.start && (
                   <p className="text-red-500 text-sm">
@@ -151,7 +151,7 @@ export default function Dashboard() {
                   {...register(`zipRanges.${index}.end` as const, {
                     required: "End ZIP required",
                   })}
-                  className="w-full border border-[#F2B124] rounded-lg p-2 focus:outline-none focus:border-[#F2B124]"
+                  className="w-full border border-[#9E1E63] rounded-lg p-2 focus:outline-none focus:border-[#9E1E63]"
                 />
                 {errors.zipRanges?.[index]?.end && (
                   <p className="text-red-500 text-sm">
@@ -183,7 +183,7 @@ export default function Dashboard() {
 
         <button
           type="submit"
-          className="w-full bg-[#F2B124] text-white rounded-lg py-2 font-medium hover:bg-[#e0a91f] transition cursor-pointer"
+          className="w-full bg-[#9E1E63] text-white rounded-lg py-2 font-medium hover:bg-[#9E1E63] transition cursor-pointer"
         >
           Save
         </button>
@@ -191,7 +191,7 @@ export default function Dashboard() {
         <div className="flex flex-col sm:flex-row gap-2">
           <button
             type="button"
-            className="w-full bg-[#F2B124] text-white rounded-lg py-2 font-medium hover:bg-[#e0a91f] transition cursor-pointer"
+            className="w-full bg-[#9E1E63] text-white rounded-lg py-2 font-medium hover:bg-[#9E1E63] transition cursor-pointer"
             onClick={() => router.push("/finduser")}
           >
             View user in ZIP
@@ -199,7 +199,7 @@ export default function Dashboard() {
 
           <button
             type="button"
-            className="w-full bg-[#F2B124] text-white rounded-lg py-2 font-medium hover:bg-[#e0a91f] transition cursor-pointer"
+            className="w-full bg-[#9E1E63] text-white rounded-lg py-2 font-medium hover:bg-[#9E1E63] transition cursor-pointer"
             onClick={() => router.push("/userList")}
           >
             View users list

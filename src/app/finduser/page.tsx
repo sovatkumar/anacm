@@ -53,14 +53,24 @@ export default function ZipSearch() {
 
   return (
     <>
-      <main className="mx-auto p-8 space-y-6 bg-[#005cbe]">
-        <h1 className="text-2xl sm:text-4xl text-center font-normal text-[#fff] w-full">
-          Find a representative closest to you
-        </h1>
+      <main className="mx-auto p-8 space-y-6 bg-[#9E1E63]">
+        <div className="flex  items-center">
+          <a href="https://social63319.wixstudio.com/wheelchair-seating-m?rc=test-site" target="_blank">
+            <img
+              src="/anacmlogo.avif"
+              alt="Company Logo"
+              className="mx-auto w-32 sm:w-40 md:w-48 h-auto object-contain rounded-lg shadow-md bg-white p-2"
+            />
+          </a>
+
+          <h1 className="text-2xl sm:text-4xl text-center font-normal text-[#fff] w-full">
+            Find a representative closest to you
+          </h1>
+        </div>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col sm:flex-row items-center gap-4 sm:p-6 rounded-xl max-w-lg mx-auto bg-[#005cbe]"
+          className="flex flex-col sm:flex-row items-center gap-4 sm:p-6 rounded-xl max-w-lg mx-auto bg-[#9E1E63]"
         >
           <label className="text-white font-medium whitespace-nowrap text-center sm:text-left">
             Enter Your Zip Code:
@@ -79,12 +89,10 @@ export default function ZipSearch() {
           <button
             type="submit"
             disabled={loading || zipValue.length !== 5}
-            className={`w-full sm:w-auto bg-white cursor-pointer text-[#1668a8] p-[7px] rounded-md px-4 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#4888cd] disabled:text-white`}
+            className={`w-full sm:w-auto bg-white cursor-pointer text-[#9E1E63] p-[7px] rounded-md px-4 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#9E1E63] disabled:border disabled:text-white`}
           >
             {loading ? "Searching..." : "Search"}
           </button>
-
-          
         </form>
       </main>
 

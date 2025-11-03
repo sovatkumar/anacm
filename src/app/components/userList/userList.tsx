@@ -139,13 +139,13 @@ export const UserList = () => {
                 </td>
                 <td className="px-6 py-3 text-center space-x-3">
                   <button
-                    className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-105 transition cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-blue-50 text-[#9E1E63] hover:bg-blue-100 hover:scale-105 transition cursor-pointer"
                     onClick={() => handleEditClick(user)}
                   >
                     Edit
                   </button>
                   <button
-                    className="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 hover:scale-105 transition cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-red-50 text-[#9E1E63] hover:bg-red-100 hover:scale-105 transition cursor-pointer"
                     onClick={() => handleDelete(user._id)}
                   >
                     Delete
@@ -244,7 +244,7 @@ export const UserList = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-[#F2B124] text-white rounded-lg py-2 font-medium hover:bg-[#e0a91f] transition cursor-pointer"
+                className="w-full bg-[#9E1E63] text-white rounded-lg py-2 font-medium hover:bg-[#9E1E63] transition cursor-pointer"
               >
                 Save Changes
               </button>
