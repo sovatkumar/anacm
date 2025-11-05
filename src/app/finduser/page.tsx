@@ -2,6 +2,7 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import Header from "../components/Header/header";
 
 type FormData = {
   zip: string;
@@ -53,15 +54,16 @@ export default function ZipSearch() {
 
   return (
     <>
+    <Header/>
       <main className="mx-auto p-8 space-y-6 bg-[#9E1E63]">
         <div className="flex  items-center">
-          <a href="https://social63319.wixstudio.com/wheelchair-seating-m?rc=test-site" target="_blank">
+          {/* <a href="https://social63319.wixstudio.com/wheelchair-seating-m?rc=test-site" target="_blank">
             <img
               src="/anacmlogo.avif"
               alt="Company Logo"
               className="mx-auto w-32 sm:w-40 md:w-48 h-auto object-contain rounded-lg shadow-md bg-white p-2"
             />
-          </a>
+          </a> */}
 
           <h1 className="text-2xl sm:text-4xl text-center font-normal text-[#fff] w-full">
             Find a representative closest to you
