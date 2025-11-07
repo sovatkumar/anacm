@@ -13,7 +13,7 @@ export default function Header() {
     { title: "Clinical", link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-10" },
     { title: "Blog", link: "https://social63319.wixstudio.com/wheelchair-seating-m/news" },
     { title: "Find a Rep", link: "http://62.72.59.202:3003/finduser" },
-    { title: "Faq", link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-13" },
+    { title: "FAQ", link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-13" },
   ];
 
   return (
