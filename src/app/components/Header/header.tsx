@@ -6,18 +6,48 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const headerOptions = [
-    { title: "Home", link: "https://social63319.wixstudio.com/wheelchair-seating-m" },
-    { title: "About", link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-9" },
-    { title: "Our Solutions", link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-11" },
-    { title: "Resources", link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-8" },
-    { title: "Clinical", link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-10" },
-    { title: "Blog", link: "https://social63319.wixstudio.com/wheelchair-seating-m/news" },
+    {
+      title: "Home",
+      link: "https://social63319.wixstudio.com/wheelchair-seating-m",
+    },
+    {
+      title: "About",
+      link: "https://social63319.wixstudio.com/wheelchair-seating-m/about",
+    },
+    {
+      title: "Products",
+      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-11",
+    },
+
+    // {
+    //   title: "Our Solutions",
+    //   link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-11",
+    // },
+    {
+      title: "Resources",
+      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-8",
+    },
+    {
+      title: "Clinical",
+      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-10",
+    },
+    {
+      title: "Blog",
+      link: "https://social63319.wixstudio.com/wheelchair-seating-m/news",
+    },
     { title: "Find a Rep", link: "http://62.72.59.202:3003/finduser" },
-    { title: "FAQ", link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-13" },
+    {
+      title: "FAQ",
+      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-13",
+    },
+    {
+      title: "Order Forms",
+      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-19",
+    },
   ];
 
   return (
-    <header className="flex items-center justify-center py-6 bg-white shadow-sm relative z-50">
+    <header className="flex items-center justify-center py-10 bg-white shadow-sm relative z-50">
       <div className="flex items-center justify-between w-full max-w-[1400px] px-6 md:px-12">
         <a
           href="https://social63319.wixstudio.com/wheelchair-seating-m?rc=test-site"
