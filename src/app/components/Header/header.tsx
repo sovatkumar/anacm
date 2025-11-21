@@ -79,7 +79,7 @@ export default function Header() {
           href="https://social63319.wixstudio.com/wheelchair-seating-m/blank-12"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:inline-block bg-[#a12b6b] text-white font-semibold px-12 py-5 rounded-md hover:bg-[#8e225f] transition-colors"
+          className="hidden md:inline-block bg-[#a12b6b] text-white font-semibold px-12 py-5 rounded-md hover:bg-black transition-colors"
         >
           Contact Us
         </a>
