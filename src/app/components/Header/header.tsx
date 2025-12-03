@@ -16,7 +16,7 @@ export default function Header() {
     },
     {
       title: "Products",
-      link: "https://www.matrixseatingusa.com/blank-11",
+      link: "https://www.matrixseatingusa.com/products",
     },
 
     // {
@@ -25,11 +25,11 @@ export default function Header() {
     // },
     {
       title: "Resources",
-      link: "https://www.matrixseatingusa.com/blank-8",
+      link: "https://www.matrixseatingusa.com/resources",
     },
     {
       title: "Clinical",
-      link: "https://www.matrixseatingusa.com/blank-10",
+      link: "https://www.matrixseatingusa.com/clinical",
     },
     // {
     //   title: "Blog",
@@ -38,11 +38,11 @@ export default function Header() {
     { title: "Find a Rep", link: "http://62.72.59.202:3003/finduser" },
     {
       title: "FAQ",
-      link: "https://www.matrixseatingusa.com/blank-13",
+      link: "https://www.matrixseatingusa.com/faq",
     },
     {
       title: "Order Forms",
-      link: "https://www.matrixseatingusa.com/blank-19",
+      link: "https://www.matrixseatingusa.com/order-form",
     },
   ];
 
@@ -76,7 +76,7 @@ export default function Header() {
         </nav>
 
         <a
-          href="https://www.matrixseatingusa.com/blank-12"
+          href="https://www.matrixseatingusa.com/contact-us"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:inline-block bg-[#a12b6b] text-white font-semibold px-12 py-5 rounded-md hover:bg-black transition-colors"
@@ -107,7 +107,7 @@ export default function Header() {
             </a>
           ))}
           <a
-            href="https://www.matrixseatingusa.com/blank-12"
+            href="https://www.matrixseatingusa.com/contact-us"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#a12b6b] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#8e225f] transition-colors"
