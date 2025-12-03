@@ -8,15 +8,15 @@ export default function Header() {
   const headerOptions = [
     {
       title: "Home",
-      link: "https://social63319.wixstudio.com/wheelchair-seating-m",
+      link: "https://www.matrixseatingusa.com/",
     },
     {
       title: "About",
-      link: "https://social63319.wixstudio.com/wheelchair-seating-m/about",
+      link: "https://www.matrixseatingusa.com/about",
     },
     {
       title: "Products",
-      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-11",
+      link: "https://www.matrixseatingusa.com/blank-11",
     },
 
     // {
@@ -25,24 +25,24 @@ export default function Header() {
     // },
     {
       title: "Resources",
-      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-8",
+      link: "https://www.matrixseatingusa.com/blank-8",
     },
     {
       title: "Clinical",
-      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-10",
+      link: "https://www.matrixseatingusa.com/blank-10",
     },
-    {
-      title: "Blog",
-      link: "https://social63319.wixstudio.com/wheelchair-seating-m/news",
-    },
+    // {
+    //   title: "Blog",
+    //   link: "https://social63319.wixstudio.com/wheelchair-seating-m/news",
+    // },
     { title: "Find a Rep", link: "http://62.72.59.202:3003/finduser" },
     {
       title: "FAQ",
-      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-13",
+      link: "https://www.matrixseatingusa.com/blank-13",
     },
     {
       title: "Order Forms",
-      link: "https://social63319.wixstudio.com/wheelchair-seating-m/blank-19",
+      link: "https://www.matrixseatingusa.com/blank-19",
     },
   ];
 
@@ -50,7 +50,7 @@ export default function Header() {
     <header className="flex items-center justify-center py-10 bg-white shadow-sm relative z-50">
       <div className="flex items-center justify-between w-full max-w-[1400px] px-6 md:px-12">
         <a
-          href="https://social63319.wixstudio.com/wheelchair-seating-m?rc=test-site"
+          href="https://www.matrixseatingusa.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -76,7 +76,7 @@ export default function Header() {
         </nav>
 
         <a
-          href="https://social63319.wixstudio.com/wheelchair-seating-m/blank-12"
+          href="https://www.matrixseatingusa.com/blank-12"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:inline-block bg-[#a12b6b] text-white font-semibold px-12 py-5 rounded-md hover:bg-black transition-colors"
@@ -107,7 +107,7 @@ export default function Header() {
             </a>
           ))}
           <a
-            href="https://social63319.wixstudio.com/wheelchair-seating-m/blank-12"
+            href="https://www.matrixseatingusa.com/blank-12"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#a12b6b] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#8e225f] transition-colors"
