@@ -68,7 +68,7 @@ export default function Header() {
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={`nav-link text-[17px] font-[400] text-black hover:text-[#a12b6b] transition-colors`}
+              className={`nav-link text-[18px] font-[500] text-black hover:text-[#a12b6b] transition-colors`}
             >
               {item.title}
             </a>
