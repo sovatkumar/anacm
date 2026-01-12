@@ -1,13 +1,21 @@
-import clientPromise from "@/app/lib/mongodb";
+import getMongoClient from "@/app/lib/mongodb";
 
 export async function GET() {
   try {
-    const client = await clientPromise;
+    const client = await getMongoClient();
     const db = client.db();
     const collection = db.collection("user");
-    const users: any = await collection
+
+    const users = await collection
       .find({})
-      .project({ _id: 1, name: 1, email: 1, phone: 1, zip: 1,zipRanges:1 })
+      .project({
+        _id: 1,
+        name: 1,
+        email: 1,
+        phone: 1,
+        zip: 1,
+        zipRanges: 1
+      })
       .toArray();
 
     if (!users.length) {
@@ -18,13 +26,19 @@ export async function GET() {
     }
 
     return new Response(
-      JSON.stringify({ message: `Found ${users.length} user(s)`, data: users }),
+      JSON.stringify({
+        message: `Found ${users.length} user(s)`,
+        data: users
+      }),
       { status: 200 }
     );
   } catch (error: any) {
     console.error("Fetch All Users Error:", error);
     return new Response(
-      JSON.stringify({ error: "Failed to fetch users", details: error.message }),
+      JSON.stringify({
+        error: "Failed to fetch users",
+        details: error.message
+      }),
       { status: 500 }
     );
   }

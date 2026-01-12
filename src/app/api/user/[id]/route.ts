@@ -11,7 +11,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const client = await clientPromise;
+    const client = await clientPromise();
     const db = client.db();
     const collection = db.collection("user");
 
@@ -39,7 +39,7 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await req.json();
-    const client = await clientPromise;
+    const client = await clientPromise();
     const db = client.db();
     const collection = db.collection("user");
 

@@ -1,26 +1,37 @@
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI as string;
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
 
 if (!uri) {
   throw new Error("Please add your Mongo URI to .env");
 }
 
 declare global {
-  var _mongoClientPromise: Promise<MongoClient> | undefined;
+  var _mongo: {
+    client: MongoClient | null;
+    promise: Promise<MongoClient> | null;
+  } | undefined;
 }
 
-if (process.env.NODE_ENV === "development") {
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri);
-    global._mongoClientPromise = client.connect();
+let cached = global._mongo;
+
+if (!cached) {
+  cached = global._mongo = {
+    client: null,
+    promise: null,
+  };
+}
+
+export default async function getMongoClient() {
+  if (cached!.client) {
+    return cached!.client;
   }
-  clientPromise = global._mongoClientPromise;
-} else {
-  client = new MongoClient(uri);
-  clientPromise = client.connect();
-}
 
-export default clientPromise;
+  if (!cached!.promise) {
+    const client = new MongoClient(uri);
+    cached!.promise = client.connect();
+  }
+
+  cached!.client = await cached!.promise;
+  return cached!.client;
+}

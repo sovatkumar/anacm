@@ -23,7 +23,7 @@ export async function POST(req: any) {
       }
     }
 
-    const client = await clientPromise;
+    const client = await clientPromise();
     const db = client.db();
     const collection = db.collection("user");
     await collection.insertOne({
@@ -50,7 +50,7 @@ export async function POST(req: any) {
 
 export async function GET(req: Request) {
   try {
-    const client = await clientPromise;
+    const client = await clientPromise();
     const db = client.db();
     const collection = db.collection("user");
     const { searchParams } = new URL(req.url);
