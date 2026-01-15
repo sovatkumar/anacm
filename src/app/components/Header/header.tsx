@@ -11,7 +11,7 @@ export default function Header() {
     { title: "Products", link: "https://www.matrixseatingusa.com/products" },
     { title: "Resources", link: "https://www.matrixseatingusa.com/resources" },
     { title: "Clinical", link: "https://www.matrixseatingusa.com/clinical" },
-    { title: "Find a Rep", link: "http://62.72.59.202:3003/finduser" },
+    { title: "Find a Rep", link: "http://72.60.121.12:3003/finduser" },
     { title: "FAQ", link: "https://www.matrixseatingusa.com/faq" },
     { title: "Order Forms", link: "https://www.matrixseatingusa.com/order-form" },
   ];

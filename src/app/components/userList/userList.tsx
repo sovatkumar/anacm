@@ -26,7 +26,8 @@ export const UserList = () => {
     email: string;
     phone: string;
     zipRanges: ZipRange[];
-  }>({ email: "", phone: "", zipRanges: [] });
+    name:string
+  }>({ email: "", phone: "", zipRanges: [],name:"" });
 
   const fetchUser = async () => {
     setLoading(true);
@@ -62,6 +63,7 @@ export const UserList = () => {
       email: user.email,
       phone: user.phone,
       zipRanges: user.zipRanges,
+      name:user.name
     });
     setShowModal(true);
   };
@@ -170,6 +172,18 @@ export const UserList = () => {
               Edit User
             </h2>
             <form onSubmit={handleEditSubmit} className="space-y-4">
+               <div>
+                <label className="block font-medium dark:text-black">Name</label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded-lg p-2 dark:text-black"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  required
+                />
+              </div>
               <div>
                 <label className="block font-medium dark:text-black">Email</label>
                 <input
